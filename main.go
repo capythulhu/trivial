@@ -12,7 +12,7 @@ import (
 
 func main() {
 	if len(os.Args) != 3 {
-		fmt.Println("Usage: ./main <memory> <tryte to get>")
+		fmt.Println("usage: ./main <memory> <tryte to get>")
 		os.Exit(1)
 	}
 
@@ -25,9 +25,7 @@ func main() {
 			m.Set(i, tryte.MustRead(providedMemory[i*std.TRYTE_TRIT:i*std.TRYTE_TRIT+std.TRYTE_TRIT]))
 		} else {
 			m.Set(i, tryte.MustRead(providedMemory[i*std.TRYTE_TRIT:]))
-			// TODO: results below differ; why?
-			fmt.Println(tryte.MustRead(providedMemory[i*std.TRYTE_TRIT:]))
-			fmt.Println(m.Get(providedTryte).String())
 		}
 	}
+	fmt.Println(m.Get(providedTryte))
 }

@@ -1,6 +1,8 @@
 package memory
 
 import (
+	"strconv"
+
 	"github.com/thzoid/trickster/tryte"
 	"github.com/thzoid/trickster/tryte/std"
 )
@@ -41,4 +43,12 @@ func (m Memory) Get(t uint64) (value tryte.Tryte) {
 	value[1] |= m.buffer[B+2] >> (std.BYTE_BIT - offset)
 	value[2] = m.buffer[B+2] << offset
 	return
+}
+
+func (m Memory) String() string {
+	str := ""
+	for _, b := range m.buffer {
+		str += strconv.FormatInt(int64(b), 2) + " "
+	}
+	return str
 }

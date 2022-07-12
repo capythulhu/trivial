@@ -11,7 +11,7 @@ type Tryte [3]byte
 func (t Tryte) String() string {
 	str := make([]rune, std.TRYTE_TRIT)
 	for i := 0; i < std.TRYTE_TRIT; i++ {
-		str[std.TRYTE_TRIT-1-i] = tritToChar(Trit(t[std.ByteOfTrit(uint64(i))] >> std.TritOffset(uint64(i)) & 0b11))
+		str[i] = tritToChar(Trit((t[std.ByteOfTrit(uint64(i))] >> std.TritOffset(uint64(i)) & 0b11)))
 	}
 	return string(str)
 }
@@ -22,8 +22,9 @@ func Read(s string) (Tryte, error) {
 	}
 
 	T := Tryte{}
-	for i := len(s) - 1; i >= 0; i-- {
-		T[std.ByteOfTrit(uint64(i))] |= byte(charToTrit(s[len(s)-1-i])) << std.TritOffset(uint64(i))
+	for i := 0; i < len(s); i++ {
+		T[std.ByteOfTrit(uint64(std.TRYTE_TRIT-len(s)+i))] |= byte(charToTrit(s[i])) <<
+			std.TritOffset(uint64(std.TRYTE_TRIT-len(s)+i))
 	}
 
 	return T, nil
