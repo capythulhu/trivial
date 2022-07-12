@@ -19,7 +19,12 @@ func ByteOfTryte(T uint64) (B uint64) {
 	return T*TRIT_BIT + T/BYTE_TRIT
 }
 
+// // Offset of 0b11 inside a byte
+// func TritOffset(t uint64) (offset uint64) {
+// 	return (BYTE_TRIT - 1 - t%BYTE_TRIT) * TRIT_BIT
+// }
+
 // Offset of 0b11 inside a byte
 func TritOffset(t uint64) (offset uint64) {
-	return (BYTE_TRIT - 1 - t%BYTE_TRIT) * TRIT_BIT
+	return t % BYTE_TRIT * TRIT_BIT
 }

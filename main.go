@@ -7,5 +7,6 @@ import (
 )
 
 func main() {
-	fmt.Println(tryte.Tryte{0b10, 0, 0})
+	fmt.Println(tryte.Tryte{0b00011001}) // ------0+0
+	fmt.Println(tryte.MustRead("-0+0"))  // ------0+0
 }
