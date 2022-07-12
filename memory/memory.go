@@ -9,9 +9,13 @@ type Memory struct {
 	buffer []byte
 }
 
-func NewMemory(capacity uint) (m Memory) {
+func NewMemory(capacity uint64) (m Memory) {
 	m.buffer = make([]byte, std.BytesFromTrytes(capacity))
 	return
+}
+
+func (m Memory) Size() (T uint64) {
+	return uint64(len(m.buffer) * std.BYTE_TRIT / std.TRYTE_TRIT)
 }
 
 func (m Memory) Set(t uint64, value tryte.Tryte) {
@@ -25,7 +29,7 @@ func (m Memory) Set(t uint64, value tryte.Tryte) {
 	mask >>= std.TRIT_BIT
 	m.buffer[B+2] &= mask
 	m.buffer[B+2] |= byte(value[1]) << (std.BYTE_BIT - offset)
-	m.buffer[B+2] |= byte(value[2]&192) >> offset // 192 = 0b11000000 = Last byte mask for normal tryte
+	m.buffer[B+2] |= byte(value[2]&0b11000000) >> offset
 }
 
 func (m Memory) Get(t uint64) (value tryte.Tryte) {

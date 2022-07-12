@@ -5,7 +5,7 @@ func ceil(a, b uint64) uint64 {
 }
 
 // Bytes needed to store a number of trits
-func BytesFromTrytes(T uint) (B uint) {
+func BytesFromTrytes(T uint64) (B uint) {
 	return uint(ceil(uint64(T*TRYTE_TRIT), uint64(BYTE_TRIT)))
 }
 
