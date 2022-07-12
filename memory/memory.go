@@ -20,8 +20,8 @@ func (m Memory) Size() (T uint64) {
 	return uint64(len(m.buffer) * std.BYTE_TRIT / std.TRYTE_TRIT)
 }
 
-func (m Memory) Set(t uint64, value tryte.Tryte) {
-	B := std.ByteOfTryte(t)
+func (m Memory) Set(T uint64, value tryte.Tryte) {
+	B := std.ByteOfTryte(T)
 	offset := byte(B % std.TRYTE_TRIT)
 	mask := byte(0xff >> offset)
 	m.buffer[B+0] &= ^mask
@@ -34,8 +34,8 @@ func (m Memory) Set(t uint64, value tryte.Tryte) {
 	m.buffer[B+2] |= byte(value[2]&0b11000000) >> offset
 }
 
-func (m Memory) Get(t uint64) (value tryte.Tryte) {
-	B := std.ByteOfTryte(t)
+func (m Memory) Get(T uint64) (value tryte.Tryte) {
+	B := std.ByteOfTryte(T)
 	offset := byte(B % std.TRYTE_TRIT)
 	value[0] = m.buffer[B+0] << offset
 	value[0] |= m.buffer[B+1] >> (std.BYTE_BIT - offset)

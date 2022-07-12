@@ -27,5 +27,6 @@ func main() {
 			m.Set(i, tryte.MustRead(providedMemory[i*std.TRYTE_TRIT:]))
 		}
 	}
+
 	fmt.Println(m.Get(providedTryte))
 }
