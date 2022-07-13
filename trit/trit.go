@@ -1,11 +1,14 @@
 package trit
 
+// Trit data type
 type Trit byte
 
+// Convert trit to string
 func (t Trit) String() string {
 	return string(TritToChar(t))
 }
 
+// Convert char to trit
 func CharToTrit(c rune) Trit {
 	switch c {
 	case '-':
@@ -19,6 +22,7 @@ func CharToTrit(c rune) Trit {
 	}
 }
 
+// Convert trit to char
 func TritToChar(t Trit) rune {
 	switch t {
 	case 0b00:

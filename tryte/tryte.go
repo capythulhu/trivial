@@ -6,12 +6,14 @@ import (
 	"github.com/thzoid/trivial/trit"
 )
 
+// Tryte data type
 type Tryte [3]byte
 
-func (t Tryte) String() string {
+// Convert tryte to string
+func (T Tryte) String() string {
 	str := make([]rune, TRYTE_TRIT)
-	for i := 0; i < TRYTE_TRIT; i++ {
-		str[i] = trit.TritToChar(trit.Trit((t[ByteOfTrit(uint64(i))] >> TritOffset(uint64(i)) & 0b11)))
+	for i := uint64(0); i < TRYTE_TRIT; i++ {
+		str[i] = trit.TritToChar(trit.Trit((T[ByteOfTrit(i)] >> TritOffset(i) & 0b11)))
 	}
 	return string(str)
 }
@@ -41,4 +43,22 @@ func MustRead(s string) Tryte {
 		panic(err)
 	}
 	return t
+}
+
+// Set trit in tryte
+func (T *Tryte) Set(i uint64, t trit.Trit) {
+	T[ByteOfTrit(i)] &= ^(0b11 << TritOffset(i))
+	T[ByteOfTrit(i)] |= byte(t) << TritOffset(i)
+}
+
+// Get trit in tryte
+func (T Tryte) Get(i uint64) (t trit.Trit) {
+	return trit.Trit((T[ByteOfTrit(i)] >> TritOffset(i)) & 0b11)
+}
+
+// Map trits in tryte
+func (T *Tryte) Map(callback func(trit.Trit) trit.Trit) {
+	for i := uint64(0); i < TRYTE_TRIT; i++ {
+		T.Set(i, callback(T.Get(i)))
+	}
 }
