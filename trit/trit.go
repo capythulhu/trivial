@@ -6,7 +6,7 @@ func (t Trit) String() string {
 	return string(TritToChar(t))
 }
 
-func CharToTrit(c byte) Trit {
+func CharToTrit(c rune) Trit {
 	switch c {
 	case '-':
 		return 0b00

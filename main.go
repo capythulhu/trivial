@@ -11,7 +11,7 @@ import (
 
 func main() {
 	if len(os.Args) != 3 {
-		fmt.Println("usage: ./main <memory> <tryte to get>")
+		fmt.Println("usage: ./trivial <memory> <tryte to get>")
 		os.Exit(1)
 	}
 
