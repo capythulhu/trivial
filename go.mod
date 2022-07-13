@@ -1,3 +1,3 @@
-module github.com/thzoid/trickster
+module github.com/thzoid/trivial
 
 go 1.18

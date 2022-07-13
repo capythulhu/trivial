@@ -3,7 +3,7 @@ package tryte
 import (
 	"fmt"
 
-	"github.com/thzoid/trickster/tryte/std"
+	"github.com/thzoid/trivial/tryte/std"
 )
 
 type Tryte [3]byte

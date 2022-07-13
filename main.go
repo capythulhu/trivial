@@ -5,9 +5,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/thzoid/trickster/memory"
-	"github.com/thzoid/trickster/tryte"
-	"github.com/thzoid/trickster/tryte/std"
+	"github.com/thzoid/trivial/memory"
+	"github.com/thzoid/trivial/tryte"
+	"github.com/thzoid/trivial/tryte/std"
 )
 
 func main() {

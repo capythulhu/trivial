@@ -3,8 +3,8 @@ package memory
 import (
 	"strconv"
 
-	"github.com/thzoid/trickster/tryte"
-	"github.com/thzoid/trickster/tryte/std"
+	"github.com/thzoid/trivial/tryte"
+	"github.com/thzoid/trivial/tryte/std"
 )
 
 type Memory struct {
