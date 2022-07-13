@@ -1,12 +1,12 @@
-package tryte
+package trit
 
 type Trit byte
 
 func (t Trit) String() string {
-	return string(tritToChar(t))
+	return string(TritToChar(t))
 }
 
-func charToTrit(c byte) Trit {
+func CharToTrit(c byte) Trit {
 	switch c {
 	case '-':
 		return 0b00
@@ -19,7 +19,7 @@ func charToTrit(c byte) Trit {
 	}
 }
 
-func tritToChar(t Trit) rune {
+func TritToChar(t Trit) rune {
 	switch t {
 	case 0b00:
 		return '-'
@@ -30,11 +30,4 @@ func tritToChar(t Trit) rune {
 	default:
 		return '∄'
 	}
-}
-
-func Not(t Trit) (u Trit) {
-	notX := ^t & 0b10
-	y := t & 0b01
-	u = notX ^ y<<1 | y
-	return
 }
