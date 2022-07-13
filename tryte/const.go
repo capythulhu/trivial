@@ -1,4 +1,4 @@
-package std
+package tryte
 
 const (
 	// 1 char = 8 bits

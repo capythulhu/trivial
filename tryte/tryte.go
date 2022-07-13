@@ -2,29 +2,27 @@ package tryte
 
 import (
 	"fmt"
-
-	"github.com/thzoid/trivial/tryte/std"
 )
 
 type Tryte [3]byte
 
 func (t Tryte) String() string {
-	str := make([]rune, std.TRYTE_TRIT)
-	for i := 0; i < std.TRYTE_TRIT; i++ {
-		str[i] = tritToChar(Trit((t[std.ByteOfTrit(uint64(i))] >> std.TritOffset(uint64(i)) & 0b11)))
+	str := make([]rune, TRYTE_TRIT)
+	for i := 0; i < TRYTE_TRIT; i++ {
+		str[i] = tritToChar(Trit((t[ByteOfTrit(uint64(i))] >> TritOffset(uint64(i)) & 0b11)))
 	}
 	return string(str)
 }
 
 func Read(s string) (Tryte, error) {
-	if len(s) > std.TRYTE_TRIT {
+	if len(s) > TRYTE_TRIT {
 		return Tryte{}, fmt.Errorf("string too long")
 	}
 
 	T := Tryte{}
 	for i := 0; i < len(s); i++ {
-		T[std.ByteOfTrit(uint64(std.TRYTE_TRIT-len(s)+i))] |= byte(charToTrit(s[i])) <<
-			std.TritOffset(uint64(std.TRYTE_TRIT-len(s)+i))
+		T[ByteOfTrit(uint64(TRYTE_TRIT-len(s)+i))] |= byte(charToTrit(s[i])) <<
+			TritOffset(uint64(TRYTE_TRIT-len(s)+i))
 	}
 
 	return T, nil
