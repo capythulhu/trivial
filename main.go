@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/thzoid/trivial/memory"
+	"github.com/thzoid/trivial/ternary"
 	"github.com/thzoid/trivial/tryte"
 	"github.com/thzoid/trivial/tryte/std"
 )
@@ -19,7 +19,7 @@ func main() {
 	providedMemory := os.Args[1]
 	providedTryte, _ := strconv.ParseUint(os.Args[2], 10, 64)
 
-	m := memory.NewMemory(uint64((len(providedMemory) + std.TRYTE_TRIT - 1) / std.TRYTE_TRIT))
+	m := ternary.NewMemory(uint64((len(providedMemory) + std.TRYTE_TRIT - 1) / std.TRYTE_TRIT))
 	for i := uint64(0); i < m.Size(); i++ {
 		if i+1 < m.Size() {
 			m.Set(i, tryte.MustRead(providedMemory[i*std.TRYTE_TRIT:i*std.TRYTE_TRIT+std.TRYTE_TRIT]))
