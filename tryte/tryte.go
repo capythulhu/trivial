@@ -18,6 +18,16 @@ func (T Tryte) String() string {
 	return string(str)
 }
 
+// Create unsigned tryte
+func Unsigned(n uint16) Tryte {
+	return Tryte{0, 0, 0}
+}
+
+// Create signed tryte
+func Signed(n int16) Tryte {
+	return Tryte{0, 0, 0}
+}
+
 // Read balanced tryte from string
 func Read(s string) (Tryte, error) {
 	if len(s) > TRYTE_TRIT {
