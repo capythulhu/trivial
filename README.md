@@ -8,9 +8,16 @@ You must have [Go 1.16+](https://go.dev/doc/install) in order to compile **trivi
 
 ## ⚙️ Compiling
 
-You can compile **trivial** using the default Go command:
+First, clone this repository with the following command:
 
 ```
+git clone git@github.com:thzoid/trivial.git
+```
+
+Then, compile it:
+
+```
+cd trivial
 go build
 ```
 
