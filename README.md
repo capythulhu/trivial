@@ -11,7 +11,7 @@ You must have [Go 1.16+](https://go.dev/doc/install) in order to compile **trivi
 First, clone this repository with the following command:
 
 ```
-git clone git@github.com:thzoid/trivial.git
+git clone https://github.com/thzoid/trivial.git
 ```
 
 Then, compile it:
