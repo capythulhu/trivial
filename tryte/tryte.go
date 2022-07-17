@@ -2,30 +2,39 @@ package tryte
 
 import (
 	"fmt"
+	"math"
 
 	"github.com/thzoid/trivial/trit"
 )
 
 // Tryte data type
-type Tryte [3]byte
+type Tryte [TRYTE_BYTE]byte
 
 // Convert tryte to string
 func (T Tryte) String() string {
 	str := make([]rune, TRYTE_TRIT)
 	for i := uint64(0); i < TRYTE_TRIT; i++ {
-		str[i] = trit.TritToChar(trit.Trit((T[ByteOfTrit(i)] >> TritOffset(i) & 0b11)))
+		str[i] = trit.TritToChar(T.Get(i))
 	}
 	return string(str)
 }
 
 // Create unsigned tryte
-func Unsigned(n uint16) Tryte {
-	return Tryte{0, 0, 0}
+func UIntToUnb(n uint16) (T Tryte) {
+	l := uint64(TRYTE_TRIT - 1)
+	for i := uint64(0); n > 0; i++ {
+		T.Set(l-i, trit.Trit(n%3))
+		n /= 3
+	}
+	return
 }
 
-// Create signed tryte
-func Signed(n int16) Tryte {
-	return Tryte{0, 0, 0}
+// Create unsigned tryte
+func UnbToUInt(T Tryte) (n uint16) {
+	for i := uint64(0); i < TRYTE_TRIT; i++ {
+		n += uint16(T.Get(i)) * uint16(math.Pow(3, float64(i)))
+	}
+	return
 }
 
 // Read balanced tryte from string
@@ -39,8 +48,7 @@ func Read(s string) (Tryte, error) {
 		if trit.CharToTrit(r) == 0b11 {
 			return Tryte{}, fmt.Errorf("invalid character '%c'", r)
 		}
-		T[ByteOfTrit(uint64(TRYTE_TRIT-len(s)+i))] |= byte(trit.CharToTrit(r)) <<
-			TritOffset(uint64(TRYTE_TRIT-len(s)+i))
+		T.Set(uint64(TRYTE_TRIT-len(s)+i), trit.CharToTrit(r))
 	}
 
 	return T, nil
@@ -52,6 +60,7 @@ func MustRead(s string) Tryte {
 	if err != nil {
 		panic(err)
 	}
+
 	return t
 }
 
@@ -64,11 +73,4 @@ func (T *Tryte) Set(i uint64, t trit.Trit) {
 // Get trit in tryte
 func (T Tryte) Get(i uint64) (t trit.Trit) {
 	return trit.Trit((T[ByteOfTrit(i)] >> TritOffset(i)) & 0b11)
-}
-
-// Map trits in tryte
-func (T *Tryte) Map(callback func(trit.Trit) trit.Trit) {
-	for i := uint64(0); i < TRYTE_TRIT; i++ {
-		T.Set(i, callback(T.Get(i)))
-	}
 }

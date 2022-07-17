@@ -5,9 +5,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"os"
-	"strconv"
 
 	"github.com/spf13/cobra"
 	"github.com/thzoid/trivial/ternary"
@@ -24,19 +22,33 @@ data types and operations.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		providedMemory := os.Args[1]
-		providedTryte, _ := strconv.ParseUint(os.Args[2], 10, 64)
-
-		m := ternary.NewMemory(uint64((len(providedMemory) + tryte.TRYTE_TRIT - 1) / tryte.TRYTE_TRIT))
-		for i := uint64(0); i < m.Size(); i++ {
-			if i+1 < m.Size() {
-				m.Set(i, tryte.MustRead(providedMemory[i*tryte.TRYTE_TRIT:i*tryte.TRYTE_TRIT+tryte.TRYTE_TRIT]))
-			} else {
-				m.Set(i, tryte.MustRead(providedMemory[i*tryte.TRYTE_TRIT:]))
-			}
+		p := []ternary.Instruction{
+			{
+				Op:  ternary.STORE,
+				Arg: tryte.UIntToUnb(1),
+			},
+			{
+				Op:  ternary.LOAD,
+				Arg: tryte.UIntToUnb(1),
+			},
 		}
 
-		fmt.Println(m.Get(providedTryte))
+		cpu := ternary.NewCPU(10)
+		cpu.Load(p)
+
+		// providedMemory := os.Args[1]
+		// providedTryte, _ := strconv.ParseUint(os.Args[2], 10, 64)
+
+		// m := ternary.NewMemory(uint64((len(providedMemory) + tryte.TRYTE_TRIT - 1) / tryte.TRYTE_TRIT))
+		// for i := uint64(0); i < m.Size(); i++ {
+		// 	if i+1 < m.Size() {
+		// 		m.Set(i, tryte.MustRead(providedMemory[i*tryte.TRYTE_TRIT:i*tryte.TRYTE_TRIT+tryte.TRYTE_TRIT]))
+		// 	} else {
+		// 		m.Set(i, tryte.MustRead(providedMemory[i*tryte.TRYTE_TRIT:]))
+		// 	}
+		// }
+
+		// fmt.Println(m.Get(providedTryte))
 	},
 }
 

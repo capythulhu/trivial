@@ -2,14 +2,25 @@ package ternary
 
 import "github.com/thzoid/trivial/tryte"
 
+const INSTRUCTION_SIZE = 2
+
+type OpCode uint8
+
 const (
-	NOOP = iota
-	COMP
-	JMP
-	STORE
+	NOOP OpCode = iota
 	LOAD
-	ADD
+	STORE
+	COMP
+	JUMP
+	CALL
 	HALT
 )
 
-type Program []tryte.Tryte
+type Instruction struct {
+	Op  OpCode
+	Arg tryte.Tryte
+}
+
+func (i Instruction) Rasterize() [INSTRUCTION_SIZE]tryte.Tryte {
+	return [INSTRUCTION_SIZE]tryte.Tryte{i.Arg, tryte.UIntToUnb(uint16(i.Op))}
+}
